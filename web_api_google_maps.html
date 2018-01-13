@@ -2,56 +2,55 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>address api</title>
-<meta name="description" content="web api weather">
+<title>search address from postal code</title>
+<meta name="description" content="search address from postal code">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link href="https://fonts.googleapis.com/css?family=Kavivanar|Ranga:400,700" rel="stylesheet">
 <link rel="stylesheet" href="css/web_api_google_maps/web_api_google_maps.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
   
-  <h3>search post number</h3>
-  <div>
-    <p>
-      <label>post number<input id="zipcode" type="text" size="10" maxlength="8"></label>
-      <button id="btn">search</button>
-    </p>
-    <p>
-      <label>prefectures<input id="prefecture" type="text" size="10"></label>
-    </p>
-    <p>
-      <label>city<input id="city" type="text" size="10"></label>
-    </p>
-    <p>
-      <label>address<input id="address" type="text" size="10"></label>
-    </p>
+  <!-----   adjust light of image.   --------->
+  <div class="main_image_layer">
+    
+    <!------   site_area   ---------->
+    <div class="site_area">
+      <h1>Search address from postal code</h1>
+      
+      <!------   search address area   ------->
+      <div class="search_address_area">
+        <p>
+          <label class="postal_code">postal code<input id="zipcode" type="text" size="10" maxlength="8" placeholder="ex)1600002"></label>
+          <button id="btn">search</button>
+        </p>
+        <p>
+          <label>prefectures<input id="prefecture" type="text" size="10"></label>
+        </p>
+        <p>
+          <label>city<input id="city" type="text" size="10"></label>
+        </p>
+        <p>
+          <label>address<input id="address" type="text" size="10"></label>
+        </p>
+      </div>
+      
+      <!-----   show map button   ------->
+      <button id="btn_show_map">map</button>
+      
+      <!-----   google maps   ------->
+      <div id="map"></div>
+      
+    </div>
   </div>
-  <div id="map"></div>
-
-  <button id="btn_map">map</button>
   
-  <div id="maps"></div>
+  <!-----   google maps src  ------->
+  <div id="google_maps_src"></div>
   
-  <!--
-  <div>
-  <script id="map_src" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap"></script>
-  </div>
-  -->
-
- 
+  <!---------   jQuery    ----------------------->
+  <script src="jQuery_base/jquery-3.2.1.min.js"></script>
+  <script src="jQuery_base/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <script src="js/web_api_google_maps/web_api_google_maps.js"></script>
   
-  <div id="map_area"></div>
-
-  
-<!---------   jQuery    ----------------------->
-<script src="jQuery_base/jquery-3.2.1.min.js"></script>
-<script src="jQuery_base/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script src="js/web_api_google_maps/web_api_google_maps.js"></script>
-  
-<!---------------   google maps embedded   -------------->
-<!--<script id="map_src" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap"></script>-->
-
-
-
 </body>
 </html>

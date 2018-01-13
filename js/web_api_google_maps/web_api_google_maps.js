@@ -1,55 +1,20 @@
+////   jquery google maps API   /////////
+
 $(function(){
-  
-  /*
-  $("#btn").on("click",function(){
-    $.ajax({
-      url:"http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + $("#zipcode").val(),
-      dataType:"jsonp",
-    }).done(function(data){
-      if (data.results) {
-        console.log("OK");
-        setData(data.results[0]);
-      } else {
-        alert("none data");
-        console.log("none data");
-      }
-    }).fail(function(data){
-      alert("fail get data.");
-      console.log("fail get data.");
-    });
-  });
-  
-  
-  function setData(data){
-    $("#prefecture").val(data.address1);
-    $("#city").val(data.address2);
-    $("#address").val(data.kana3);
-  };
-  */
-  
-  /*
-  var url = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=";
-  var urlAll = url+$("#zipcode").val();
-  console.log(urlAll);
-  console.log($("#zipcode").val());
-  */
-  
-  
-  //////   google maps    ///////////
-  
-  
-  
+
+  //////   google maps information get   ///////////
   
   $("#btn").on("click",function(){
     
     var postAddress = $("#zipcode").val();
+    var URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var afterKey = "&key=";
+    var key = "AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA";
     var all = URL+postAddress+afterKey+key;
     
+    //ajax google maps address informationrequest
     
     $.ajax({
-      /*
-      url:"https://maps.googleapis.com/maps/api/geocode/json?address=" + $("#zipcode").val() + "&key=" + key,
-      */
       type : 'get',
       crossDomain : true,
       url:all,
@@ -80,12 +45,10 @@ $(function(){
         console.log(Geometry.bounds.northeast.lat);
         console.log(Geometry.bounds.northeast.lng);
         
-        // data
-        $("#map").data("lat",Geometry.bounds.northeast.lat).data("lng",Geometry.bounds.northeast.lng);
+        // data of request geometry
+        $("#map").data("lat",Geometry.location.lat).data("lng",Geometry.location.lng);
         console.log($("#map").data("lat"));
         console.log($("#map").data("lng"));
-        console.log(all);
-        
         
         
       } else {
@@ -98,278 +61,131 @@ $(function(){
     });
   });
   
-  //var AddressData = data.result[0].address_components;
-  //console.log(AddressData);
-  
-  /*
-    function setData(data){
-      $("#prefecture").val(AddressData[1]["long_name"]);
-      //$("#city").val(data.address2);
-      //$("#address").val(data.kana3);
-  };
-  */
-  
-  var URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-  var afterKey = "&key=";
-  var key = "AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA";
-  //var postAddress = 1500002;
-  //var postAddress = $("#zipcode").val();
-  //var all = URL+postAddress+afterKey+key;
-  //console.log(all);
-  
-  
-  ////////   google maps embedded   //////////////
-  /*
-  var mapScr = "https://maps.googleapis.com/maps/api/js?key=";
-  var CallBack = "&callback=initMap";
-  var mapScrAll = mapScr+key+CallBack;
-  $("#Map_HTML").attr("src",mapScrAll);
-  console.log($("#Map_HTML").attr("src"));
-  */
- 
-  
-  /////   NG jquery  ///////////
-/*
-  function initMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-
-    var map = new google.maps.map($('#map'), {
-      zoom: 4,
-      center: myLatLng
-    });
-
-    
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-    
-    
-  };
-  
-  */
-  
-  
-  
-  
-  
-  
-  
 });
 
 
-///////  OK javascript   //////////////
-/*
-  function initMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
+///////   javascript   //////////////
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatLng
-    });
+//google maps function from google maps reference
 
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-    
-    
-  };
-*/
+var latA = 35;
+var lngA = 135;
 
-    var latA = 35;
-    var lngA = 135;
+function initMap() {
 
+  var myLatLng = {lat: latA, lng: lngA};
 
-    function initMap() {
-
-    
-      
-    var myLatLng = {lat: latA, lng: lngA};
-
-    var map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: myLatLng
     });
 
-      
   var marker = new google.maps.Marker({
       position: myLatLng,
       map: map,
       title: 'Hello World!'
     });
-    
-    
   };
   
 
-///////   button map click   ///////////////////
+///////   button map click fade in map   /////
 
-  var button_map = document.getElementById("btn_map");
+var button_map = document.getElementById("btn_show_map");
+
+button_map.addEventListener("click",function(){
   
-  button_map.addEventListener("click",function(){
-
-    console.log("OK");
+  //////   google_maps_src append function   ////
+  
+  latA = $("#map").data("lat");
+  lngA = $("#map").data("lng");
+  
+  var mykey = "AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA";
+  var jsURL = "https://maps.googleapis.com/maps/api/js?key=";
+  var after_jsURL = "&callback=initMap";
+  var js_all = jsURL+mykey+after_jsURL;
+  
+  var google_maps_src = document.getElementById("google_maps_src");
     
-    latA = $("#map").data("lat");
-    lngA = $("#map").data("lng");
+  var map_js = document.createElement('script');
+  map_js.type = 'text/javascript';
+  map_js.src = js_all;
+  map_js.classList.add("maps_src");
     
-    //var latA = $("#map").data("lat");
-    //var lngA = $("#map").data("lng");
-    
-    
-    
-    var map_area = document.getElementById("map_area");
-    /*
-    map_area.innerHTML = '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap"></script>';
-    */
-    /*
-    map_area.innerHTML = '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap"></script>';
-    */
-    
-    ////////  terateil OK
-    
-    var map_js = document.createElement('script');
-    map_js.type = 'text/javascript';
-    map_js.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap'
-    map_area.appendChild(map_js);
-    
-    /*
-    function initMap() {
-    var myLatLng = {lat: 35.6920455, lng: 139.7292123};
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: myLatLng
-    });
-
-      
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-    
-    
-  };
-  */
-
-    
-    
-    
-    console.log("OKOK");
-    
-
-  });
-    
-    
-/*
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA&callback=initMap"></script>
-*/
-
-
-
-
-
-
-////////  click part2
-/*
-  var map = document.getElementById("map");
-  map.style.visibility = "hidden";
-
-  var button_map = document.getElementById("btn_map");
-
-  button_map.addEventListener("click",function(){
-    map.style.visibility = "visible";
-    console.log("OK");
-
+  google_maps_src.appendChild(map_js);
+  
 });
-*/
 
 
-/////////////   NG   ////////////////////////////
+//////   map button fadeIn   ////
 
-/*
-
-  function initMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatLng
-    });
-
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-  };
-
-*/
-
-/*
-  var Timer = setTimeout(function(){
-    
-      var button_search = document.getElementById("btn");
+function show_map_button (){
   
-  button_search.addEventListener("click",function(){
+  var btn_search = document.getElementById("btn");
+  
+  btn_search.addEventListener("click",function(){
+    var btn_show_map = document.getElementById("btn_show_map");
+    btn_show_map.style.visibility = "visible";
     
-      function initMap() {
-    var myLatLng = {lat: 35.6641549, lng: 139.7139677};
+    return;
+  });
+};
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: myLatLng
-    });
+show_map_button();
 
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-  };
+
+//////   button hover function   ////
+
+function postal_code_hover_func (){
+  
+  var postal_code = document.getElementsByClassName("postal_code");
+  var first_postal_code = postal_code[0];
+  
+  var input_zipcode = document.getElementById("zipcode");
+  
+  ////////   mouseover   //////////
+  first_postal_code.addEventListener("mouseover",function(){
+    first_postal_code.style.color = "#0000ff";
+    input_zipcode.style.color = "#ffff00";
+    input_zipcode.style.backgroundColor = "rgba(135,206,250,0.8)";
+  });
+  
+  ////////   mouseout   //////////
+  first_postal_code.addEventListener("mouseout",function(){
+    first_postal_code.style.color = "#000";
+    input_zipcode.style.color = "#000";
+    input_zipcode.style.backgroundColor = "#d3d3d3";
+  });
+
+  return;
+  
+};
+
+postal_code_hover_func();
+
+
+//////   google_maps_src remove function   ////
+
+function maps_src_remove_func (){
+  
+  button_map.addEventListener("click",function(){
     
-    console.log("hello world");
+    var maps_src = document.getElementsByClassName("maps_src");
+    var first_maps_src = maps_src[0];
+    first_maps_src.parentNode.removeChild(first_maps_src);
     
   });
-    
-    console.log("OKOK");
-    
-  },10000);
-*/
-
-
-/*
-  var button_search = document.getElementById("btn");
   
-  button_search.addEventListener("click",function(){
-    
-      function initMap() {
-    var myLatLng = {lat: 35.6641549, lng: 139.7139677};
+};
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: myLatLng
-    });
-
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-  };
-    
-    console.log("hello world");
-    
-  });
-*/
+maps_src_remove_func();
 
 
+/*********  notice error message  *********/
+// If I click map button repetition, do display error message.
+// It works normally.
 
-////////////   terateil
+// error message
+// You have included the Google Maps API multiple times on this page. This may cause unexpected errors.
 
 
 
