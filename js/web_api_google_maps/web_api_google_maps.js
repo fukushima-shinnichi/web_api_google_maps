@@ -180,6 +180,54 @@ function maps_src_remove_func (){
 maps_src_remove_func();
 
 
+//////   smart phone javascript   //////////
+
+function smart_phone_func(){
+  
+  var window_size = window.innerWidth;
+  //console.log(window_size);
+    
+    var postal_code = document.getElementsByClassName("postal_code");
+    var first_postal_code = postal_code[0];
+  
+    var input_zipcode = document.getElementById("zipcode");
+  
+    ////////   touchstart   //////////
+    first_postal_code.addEventListener("touchstart",function(){
+      first_postal_code.style.color = "#0000ff";
+      input_zipcode.style.color = "#ffff00";
+      input_zipcode.style.backgroundColor = "rgba(135,206,250,0.8)";
+    });
+    
+    ////////   touchmove   //////////
+    first_postal_code.addEventListener("touchmove",function(){
+      first_postal_code.style.color = "#0000ff";
+      input_zipcode.style.color = "#ffff00";
+      input_zipcode.style.backgroundColor = "rgba(135,206,250,0.8)";
+    });
+  
+    ////////   touchend   //////////
+    first_postal_code.addEventListener("touchend",function(){
+      first_postal_code.style.color = "#000";
+      input_zipcode.style.color = "#000";
+      input_zipcode.style.backgroundColor = "#d3d3d3";
+    });
+    
+  
+  return;
+  
+};
+
+smart_phone_func();
+
+
+
+
+
+
+
+
+
 /*********  notice error message  *********/
 // If I click map button repetition, do display error message.
 // It works normally.
