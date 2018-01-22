@@ -9,7 +9,7 @@ $(function(){
     var postAddress = $("#zipcode").val();
     var URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     var afterKey = "&key=";
-    var key = "AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA";
+    var key = "your google API key";
     var all = URL+postAddress+afterKey+key;
     
     //ajax google maps address informationrequest
@@ -99,7 +99,7 @@ button_map.addEventListener("click",function(){
   latA = $("#map").data("lat");
   lngA = $("#map").data("lng");
   
-  var mykey = "AIzaSyDSCHWLpdeARXPbY5m4tGmyTk80YG_3agA";
+  var mykey = "your google API key";
   var jsURL = "https://maps.googleapis.com/maps/api/js?key=";
   var after_jsURL = "&callback=initMap";
   var js_all = jsURL+mykey+after_jsURL;
